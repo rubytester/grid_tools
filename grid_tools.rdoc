@@ -1,0 +1,5 @@
+= grid_tools
+
+Generate this with
+    grid_tools rdoc
+After you have described your command line interface
