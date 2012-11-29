@@ -1,13 +1,6 @@
 #!/usr/bin/env ruby
 require 'gli'
-begin # XXX: Remove this begin/rescue before distributing your app
 require 'grid_tools'
-rescue LoadError
-  STDERR.puts "In development, you need to use `bundle exec bin/todo` to run your app"
-  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
-  STDERR.puts "Feel free to remove this message from bin/grid_tools now"
-  exit 64
-end
 
 include GLI::App
 
@@ -15,27 +8,41 @@ program_desc 'Describe your application here'
 
 version GridTools::VERSION
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+#desc 'Describe some switch here'
+#switch [:s,:switch]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+#desc 'Describe some flag here'
+#default_value 'the default'
+#arg_name 'The name of the argument'
+#flag [:f,:flagname]
 
-desc 'Describe start here'
+desc 'Start a Hub or Node'
 arg_name 'Describe arguments to start here'
 command :start do |c|
-  c.desc 'Describe a switch to start'
-  c.switch :s
+  c.desc ''
+  c.switch [:h,:hub]
 
-  c.desc 'Describe a flag to start'
-  c.default_value 'default'
-  c.flag :f
+  #c.desc 'Describe a flag to start'
+  #c.default_value 'default'
+  #c.flag :f
   c.action do |global_options,options,args|
 
     # Your command logic here
-     
+    if args.count != 1
+      raise "No idea what to start bro."
+    end
+    if args[0] == "hub"
+      puts `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/).count
+      if `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/).count < 3 
+      binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
+      cmd = "java -jar #{binaries}/selenium-server-standalone* -browserTimeout 300 -role hub >> ~/hub.log 2>&1 &"
+      system cmd
+      pid = `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/)[0]
+      puts "Started a hub [pid: #{pid}] for you bro!"
+    else
+      raise "Already started a hub pro"
+    end
+    end 
     # If you have any errors, just raise them
     # raise "that command made no sense"
 
@@ -47,6 +54,22 @@ desc 'Describe stop here'
 arg_name 'Describe arguments to stop here'
 command :stop do |c|
   c.action do |global_options,options,args|
+     
+    if args.count != 1
+      raise "No idea what to stop bro."
+    end
+ 
+
+    if args[0] == "hub"
+     pid_array = `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/)
+     if pid_array.count > 2
+       `kill #{pid_array[0]}`
+       puts "Killed Process #{pid_array[0]}"
+     else 
+       raise "Idk what to kill bro.."
+     end
+    end
+
     puts "stop command ran"
   end
 end
