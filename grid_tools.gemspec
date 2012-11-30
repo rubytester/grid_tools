@@ -3,11 +3,11 @@ require File.join([File.dirname(__FILE__),'lib','grid_tools','version.rb'])
 spec = Gem::Specification.new do |s| 
   s.name = 'grid_tools'
   s.version = GridTools::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'Alan Scherger'
+  s.email = 'flyinprogramer@gmail.com'
+  s.homepage = 'http://www.google.com'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'grid_tools is a simple way create and manage a selenium grid.'
 # Add your other files here if you make them
   s.files = %w(
 bin/grid_tools
