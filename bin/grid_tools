@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'gli'
+require 'fileutils'
 require 'grid_tools'
+
 
 include GLI::App
 
@@ -109,6 +111,32 @@ command :stop do |c|
        raise "Idk what to kill..."
      end 
     end 
+
+  end
+end
+
+desc 'Describe install here'
+arg_name 'Describe arguments to install here'
+command :install do |c|
+  c.action do |global_options,options,args|
+     
+    if GridTools.windows?
+      ie_driver =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries/windows/IEDriverServer.exe')
+      ie_driver.gsub!("/", "\\")
+
+      chrome_driver =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries/windows/chromedriver.exe')
+      chrome_driver.gsub!("/", "\\")
+      
+      system32 = "C:\\WINDOWS\\system32"
+      #puts "IE:       #{ie_driver}"
+      #puts "CHROME:   #{chrome_driver}"
+      #puts "SYSTEM32: #{system32}"
+      FileUtils.cp(ie_driver, system32)
+      FileUtils.cp(chrome_driver, system32)
+      puts "Assuming no error above, we successfully installed IE and Chrome drivers!"
+    else
+      raise "Sorry we haven't developed this yet!"
+    end
 
   end
 end
