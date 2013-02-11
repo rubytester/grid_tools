@@ -12,10 +12,10 @@ module GridTools
    (/darwin/ =~ RUBY_PLATFORM) != nil
  end
  def self.unix?
-   !OS.windows?
+   !GridTools.windows?
  end
  def self.linux?
-   OS.unix? and not OS.mac?
+   GridTools.unix? and not GridTools.mac?
  end
 
 end
