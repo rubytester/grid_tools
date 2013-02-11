@@ -135,11 +135,15 @@ command :install do |c|
       FileUtils.cp(chrome_driver, system32)
       puts "Assuming no error above, we successfully installed IE and Chrome drivers!"
     elsif GridTools.mac?
+      puts "You will need to run this as root using something like: sudo"
+      puts "If you're using RVM you will want to use: rvmsudo"
       chrome_driver =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries/mac/chromedriver')
       usr_bin = "/usr/bin"
       FileUtils.cp(chrome_driver, usr_bin)
       puts "Assuming no error above, we successfully installed Chrome driver!"
     elsif GridTools.linux?
+      puts "You will need to run this as root using something like: sudo"
+      puts "If you're using RVM you will want to use: rvmsudo"
       chrome_driver =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries/linux_64/chromedriver')
       usr_bin = "/usr/bin"
       FileUtils.cp(chrome_driver, usr_bin)
@@ -147,7 +151,7 @@ command :install do |c|
     else
       raise "Apparently your OS isn't supported by our gem yet :("
     end
-    
+
   end
 end
 
