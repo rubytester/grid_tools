@@ -1,6 +1,0 @@
-= grid_tools
-
-Describe your project here
-
-:include:grid_tools.rdoc
-
