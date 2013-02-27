@@ -11,7 +11,7 @@ spec = Gem::Specification.new do |s|
 # Add your other files here if you make them
   s.files = %w(
 bin/grid_tools
-binaries/selenium-server-standalone-2.29.0.jar
+binaries/selenium-server-standalone-2.30.0.jar
 binaries/linux_64/chromedriver
 binaries/mac/chromedriver
 binaries/windows/IEDriverServer.exe
