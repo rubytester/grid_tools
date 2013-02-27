@@ -40,7 +40,7 @@ command :start do |c|
       if GridTools.windows?
         binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
         binaries.gsub!("/", "\\")
-        cmd = "start java -jar #{binaries}\\selenium-server-standalone-2.29.0.jar -role hub -browserTimeout 300"
+        cmd = "start java -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role hub -browserTimeout 300"
         system cmd
         puts "Started a hub."
       else
@@ -60,7 +60,7 @@ command :start do |c|
       if GridTools.windows?
         binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
         binaries.gsub!("/", "\\")
-        cmd = "start java -jar #{binaries}\\selenium-server-standalone-2.29.0.jar -role wd -hub http://#{options[:h]}:4444/grid/register -trustAllSSLCertificates"
+        cmd = "start java -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role wd -hub http://#{options[:h]}:4444/grid/register -trustAllSSLCertificates"
         system cmd
         puts "Started a node."
       else
