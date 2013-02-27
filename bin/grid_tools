@@ -40,13 +40,13 @@ command :start do |c|
       if GridTools.windows?
         binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
         binaries.gsub!("/", "\\")
-        cmd = "start java -Xmx256m -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role hub -browserTimeout 300"
+        cmd = "start java -Xms300m -Xmx512m -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role hub -browserTimeout 300"
         system cmd
         puts "Started a hub."
       else
         #if `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/).count < 3 
           binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
-          cmd = "java -Xmx256m -jar #{binaries}/selenium-server-standalone* -browserTimeout 300 -role hub >> ~/hub.log 2>&1 &"
+          cmd = "java -Xms300m -Xmx512m -jar #{binaries}/selenium-server-standalone* -browserTimeout 300 -role hub >> ~/hub.log 2>&1 &"
           system cmd
           pid = `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/)[0]
           puts "Started a hub. [pid: #{pid}]"
@@ -60,7 +60,7 @@ command :start do |c|
       if GridTools.windows?
         binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
         binaries.gsub!("/", "\\")
-        cmd = "start java -Xmx256m -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role wd -hub http://#{options[:h]}:4444/grid/register -trustAllSSLCertificates"
+        cmd = "start java -Xms300m -Xmx512m -jar #{binaries}\\selenium-server-standalone-2.30.0.jar -role wd -hub http://#{options[:h]}:4444/grid/register -trustAllSSLCertificates"
         system cmd
         puts "Started a node."
       else
@@ -68,7 +68,7 @@ command :start do |c|
           binaries =  File.expand_path(File.dirname(File.expand_path(__FILE__)) + '/../binaries')
           platform = "MAC" if GridTools.mac?
           platform = "LINUX" if GridTools.linux?
-          cmd = "java -Xmx256m -jar #{binaries}/selenium-server-standalone* -role wd -hub http://#{options[:h]}:4444/grid/register -browser \"browserName=firefox,maxInstances=5,platform=#{platform}\" -browser \"browserName=chrome,maxInstances=5,platform=#{platform}\" -trustAllSSLCertificates >> ~/node.log 2>&1 &"
+          cmd = "java -Xms300m -Xmx512m  -jar #{binaries}/selenium-server-standalone* -role wd -hub http://#{options[:h]}:4444/grid/register -browser \"browserName=firefox,maxInstances=5,platform=#{platform}\" -browser \"browserName=chrome,maxInstances=5,platform=#{platform}\" -trustAllSSLCertificates >> ~/node.log 2>&1 &"
           system cmd
           pid = `ps -e -o pid,args | awk '/selenium-server/ { print $1 }'`.split(/\n/)[0]
           puts "Started a node. [pid: #{pid}]"
